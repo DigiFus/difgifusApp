@@ -6,9 +6,11 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  turnoAcualFac:string;
+  turnoAcualUAE:string;
   constructor(public navCtrl: NavController) {
-
+    this.turnoAcualFac = "0";
+    this.turnoAcualUAE = "0";
   }
 
 }

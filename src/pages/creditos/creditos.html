@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Creditos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-list-header color="primary">
+      Autores
+    </ion-list-header>
+    <ion-item *ngFor="let aut of autor">
+      <ion-avatar item-start>
+        <img src="{{aut.foto}}">
+      </ion-avatar>
+      <h2>{{aut.nombre}}</h2>
+
+      <p>{{aut.cargo}}</p>
+    </ion-item>
+
+  </ion-list>
+  <ion-list>
+    <ion-list-header color="primary">
+      Referencias
+    </ion-list-header>
+    <ion-item *ngFor="let ref of referencia">
+      <h2>{{ref.nombre}}</h2>
+      <p>{{ref.url}}</p>
+    </ion-item>
+
+  </ion-list>
+
+
+
+
+</ion-content>
