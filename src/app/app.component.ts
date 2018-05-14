@@ -3,20 +3,39 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/index.paginas';
+
+
+//importamos el servicion para validar si ya miro el tutorial
+import { AjustesProvider } from "../providers/ajustes/ajustes";
+import { LoginPage, IntroduccionPage } from '../pages/index.paginas';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TabsPage;
-
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  rootPage:any;
+  //rootPage:any = TabsPage;
+//Esto es lo primero que se ejecuta una vez termina de cargar la app de ionic
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private _ajustes:AjustesProvider) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+
+      //Cuanto la app este lista hacemos lo siguiente
+      this._ajustes.cargar_storage()
+                  .then(()=>{
+
+                    //Validamos si ya miro el tutorial, si es asi lo pasamos a la autenticacion
+                    if (this._ajustes.ajustes.mostrar_tutorial) {
+                        this.rootPage = IntroduccionPage;
+                    }else
+                    {
+                      this.rootPage = LoginPage;
+                    }
+
+                    statusBar.styleDefault();
+                    splashScreen.hide();
+
+                  });
+
     });
   }
 }

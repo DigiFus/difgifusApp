@@ -3,6 +3,9 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpClientModule } from '@angular/common/http';
+//plugin storange
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import {
@@ -10,8 +13,13 @@ import {
   HomePage,
   LoginPage,
   PerfilPage,
-  TabsPage
+  TabsPage,
+  IntroduccionPage,
+  RegistroPage
 } from '../pages/index.paginas';
+import { AutenticarProvider } from '../providers/autenticar/autenticar';
+import { AjustesProvider } from '../providers/ajustes/ajustes';
+import { TestProvider } from '../providers/test/test';
 
 @NgModule({
   declarations: [
@@ -20,11 +28,17 @@ import {
     HomePage,
     LoginPage,
     PerfilPage,
-    TabsPage
+    TabsPage,
+    IntroduccionPage,
+    RegistroPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      backButtonText: 'Regresar'
+    }),
+    IonicStorageModule.forRoot(),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,12 +47,17 @@ import {
     HomePage,
     LoginPage,
     PerfilPage,
-    TabsPage 
+    TabsPage,
+    IntroduccionPage,
+    RegistroPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AutenticarProvider,
+    AjustesProvider,
+    TestProvider
   ]
 })
 export class AppModule {}
