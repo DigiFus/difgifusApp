@@ -20,6 +20,8 @@ import {
 import { AutenticarProvider } from '../providers/autenticar/autenticar';
 import { AjustesProvider } from '../providers/ajustes/ajustes';
 import { TestProvider } from '../providers/test/test';
+import { ControlStorangeProvider } from '../providers/control-storange/control-storange';
+import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { TestProvider } from '../providers/test/test';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AutenticarProvider,
     AjustesProvider,
-    TestProvider
+    TestProvider,
+    ControlStorangeProvider,
+    SolicitudesProvider
   ]
 })
 export class AppModule {}

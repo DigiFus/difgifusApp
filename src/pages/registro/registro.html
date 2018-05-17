@@ -8,33 +8,37 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content Padding>
   <ion-list>
 
       <ion-item>
         <ion-label stacked color="dark">Nombres y Apellidos</ion-label>
-        <ion-input type="text" value=""></ion-input>
+        <ion-input type="text" value="" [(ngModel)]="dataIng.nomb"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked color="dark">Correo</ion-label>
-        <ion-input type="text" value=""></ion-input>
+        <ion-input type="email" value="" [(ngModel)]="dataIng.correo"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked color="dark">Contraseña</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="dataIng.pass" ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label stacked color="dark">Confirmar Contraseña</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="dataIng.confirmpass"></ion-input>
       </ion-item>
 
   </ion-list>
 
-  <button ion-button block color="primary">
+  <button ion-button block color="primary"
+          (click)="crearUsuario()"
+          >
       Crear cuenta
   </button>
+
+
 
 </ion-content>

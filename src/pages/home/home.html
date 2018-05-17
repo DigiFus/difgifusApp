@@ -3,12 +3,16 @@
     <ion-title>
       DigiFus
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="cerrarSesion()">
+        Salir
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
-
 
 
 <ion-card>
@@ -23,11 +27,11 @@
               Su turno es
             </ion-card-header>
             <ion-card-content text-center>
-                <h1>{{turnoAcualUAE}}</h1>
+                <h1>{{turnoActualUAE}}</h1>
             </ion-card-content>
         </ion-card>
       </ion-card-title>
-        <button ion-button block color="primary">
+        <button ion-button block color="primary" (click)="solTurnoUae()">
           Solicitar Turno
         </button>
     </ion-card-content>
@@ -44,11 +48,11 @@
               Su turno es
             </ion-card-header>
             <ion-card-content text-center>
-                <h1>{{turnoAcualFac}}</h1>
+                <h1>{{turnoActualFac}}</h1>
             </ion-card-content>
         </ion-card>
       </ion-card-title>
-        <button ion-button block color="secondary">
+        <button ion-button block color="secondary" (click)="solTurnoFAC()">
           Solicitar Turno
         </button>
     </ion-card-content>

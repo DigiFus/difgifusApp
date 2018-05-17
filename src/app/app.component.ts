@@ -7,7 +7,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 //importamos el servicion para validar si ya miro el tutorial
 import { AjustesProvider } from "../providers/ajustes/ajustes";
-import { LoginPage, IntroduccionPage } from '../pages/index.paginas';
+
+import { LoginPage, IntroduccionPage, HomePage } from '../pages/index.paginas';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +17,8 @@ export class MyApp {
   rootPage:any;
   //rootPage:any = TabsPage;
 //Esto es lo primero que se ejecuta una vez termina de cargar la app de ionic
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private _ajustes:AjustesProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+              private _ajustes:AjustesProvider) {
     platform.ready().then(() => {
 
       //Cuanto la app este lista hacemos lo siguiente
@@ -28,7 +30,16 @@ export class MyApp {
                         this.rootPage = IntroduccionPage;
                     }else
                     {
-                      this.rootPage = LoginPage;
+                      let dataVerifi = this.verifica_token();
+
+                      if(dataVerifi){
+                        this.rootPage = HomePage;
+                      }
+                      else
+                      {
+                        this.rootPage = LoginPage;
+                      }
+
                     }
 
                     statusBar.styleDefault();
@@ -37,5 +48,24 @@ export class MyApp {
                   });
 
     });
+  }
+  verifica_token(){
+    try{
+        //let token = this._CtrStorange.cargar_storage('TOKEN');
+        let token = JSON.parse(localStorage.getItem('TOKEN'));
+
+        if (token === '') return;
+
+
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace('-', '+').replace('_', '/');
+
+        return JSON.parse(window.atob(base64)).data;
+    }catch (err){
+        //lo envia al home
+        //$location.path('/');
+        console.log(err);
+    }
+
   }
 }

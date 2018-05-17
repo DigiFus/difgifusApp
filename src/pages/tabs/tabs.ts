@@ -20,10 +20,11 @@ export class TabsPage {
     this.tab2 = PerfilPage;
     this.tab3 = CreditosPage;
 
-
+  }
+  cerrarSesion(){
+    console.log("a");
   }
 
-  
 
 
 

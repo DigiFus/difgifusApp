@@ -7,28 +7,28 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content padding>
 
 
   <ion-list>
 
       <ion-item>
         <ion-label floating color="primary">Correo</ion-label>
-        <ion-input type="email" [(ngModel)]="Correo"></ion-input>
+        <ion-input type="email" [(ngModel)]="userData.Correo" ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label floating color="primary">Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="Password"></ion-input>
+        <ion-input type="password" [(ngModel)]="userData.Password"></ion-input>
       </ion-item>
 
 </ion-list>
-  {{Correo}} - {{Password}}
+  {{msg}}
 <button ion-button block color = "primary" (click)="ingresar()">
   Ingresar
 </button>
-<button ion-button block color = "secondary" [navPush]="registro">
-  Crear nueva cuenta
+<button ion-button block color = "dark" [navPush]="registro" clear>
+  Crear una cuenta
 </button>
 
 
