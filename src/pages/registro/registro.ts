@@ -16,7 +16,10 @@ export class RegistroPage {
     "nom_usuario":"",
     "email_usuario":"",
     "pass_usuario":"",
-    "passconfirm_usu":""
+    "passconfirm_usu":"",
+    "rolUsu":"",
+    "estadoUsu":""
+
   }
   msgError:any = {};
 
@@ -40,7 +43,9 @@ export class RegistroPage {
     let data = {
       "nom_usuario":this.dataIng['nomb'],
       "email_usuario":this.dataIng['correo'],
-      "pass_usuario":this.dataIng['pass']
+      "pass_usuario":this.dataIng['pass'],
+      "rolUsu":"USUARIO",
+      "estadoUsu":"ACTIVO"
     };
 
     if (this.validaPass(data['pass_usuario'],this.dataIng['confirmpass'])) {

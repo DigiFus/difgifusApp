@@ -22,6 +22,7 @@ import { AjustesProvider } from '../providers/ajustes/ajustes';
 import { TestProvider } from '../providers/test/test';
 import { ControlStorangeProvider } from '../providers/control-storange/control-storange';
 import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
+import { PerfilProvider } from '../providers/perfil/perfil';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { SolicitudesProvider } from '../providers/solicitudes/solicitudes';
     AjustesProvider,
     TestProvider,
     ControlStorangeProvider,
-    SolicitudesProvider
+    SolicitudesProvider,
+    PerfilProvider
   ]
 })
 export class AppModule {}

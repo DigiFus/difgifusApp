@@ -52,12 +52,26 @@ export class AjustesProvider {
   }
   guardar_storage(){
 
-    if (this.platform.is("cordova")) {
+    if (this.platform.is("cordova") || this.platform.is("android")) {
       //Estamos en el dispositivo
-      this.storage.ready()
-                .then(()=>{
-                  this.storage.set("ajustes", this.ajustes);
-                });
+      /*Lineas nuevas  */
+
+      return new Promise((resolve)=>{
+        /* -----------------------------------------------------*/
+        this.storage.ready().then(()=>{
+              this.storage.set("ajustes", this.ajustes).then(()=>{
+                resolve();
+              }).catch((err)=>{
+                console.log(err);
+                
+              })
+        });
+        /*----------------------------------------------------- */
+
+      })
+
+    
+    
     }else{
     //estamos en escritorio o desktop
     localStorage.setItem("ajustes", JSON.stringify(this.ajustes));

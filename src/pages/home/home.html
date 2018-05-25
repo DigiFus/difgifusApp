@@ -7,13 +7,19 @@
       <button ion-button (click)="cerrarSesion()">
         Salir
       </button>
+
+    </ion-buttons>
+    <ion-buttons>
+      <button ion-button ion-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
     </ion-buttons>
 
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+{{msg}}
 
 <ion-card>
     <ion-card-header>
@@ -36,7 +42,7 @@
         </button>
     </ion-card-content>
 </ion-card>
-
+{{turnStorage}}
 <ion-card>
     <ion-card-header>
       Facturación
@@ -48,7 +54,7 @@
               Su turno es
             </ion-card-header>
             <ion-card-content text-center>
-                <h1>{{turnoActualFac}}</h1>
+                <h1>{{turnoActualFAC}}</h1>
             </ion-card-content>
         </ion-card>
       </ion-card-title>

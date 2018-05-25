@@ -17,17 +17,17 @@ export const REFERENCIAS = [
 export const AUTORES = [
   {
     nombre:"Astrid Rodriguez",
-    cargo:"Gerente de Proyecto",
+    cargo:"Gerente de Proyecto y documentador",
     foto:"../assets/imgs/astridrodriguez.jpeg"
   },
   {
     nombre:"David Zambrano",
-    cargo:"Coequipero de Astrid",
+    cargo:"Arquitecto y Gerente de desarrollo",
     foto:"../assets/imgs/davidzambrano.jpg"
   },
   {
-    nombre:"Giovanny Sanchez",
-    cargo:"Arquitecto",
+    nombre:"Giovanni Sanchez",
+    cargo:"Gerente de riesgo y calidad",
     foto:"../assets/imgs/giovannysanchez.jpeg"
   }
 

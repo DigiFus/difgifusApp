@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RegistroPage,HomePage } from "../index.paginas";
 
@@ -25,7 +25,6 @@ export class LoginPage {
             public navParams: NavParams,
             private _aut:AutenticarProvider,
             private _CtrStorange:ControlStorangeProvider,
-            private viewCtrl:ViewController,
             private alertCtrl:AlertController,
             private loadingCtrl: LoadingController) {
     this.registro = RegistroPage;

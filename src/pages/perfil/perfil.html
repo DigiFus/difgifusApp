@@ -2,6 +2,19 @@
 
   <ion-navbar color="primary">
     <ion-title>Perfil</ion-title>
+
+    <ion-buttons end>
+      <button ion-button (click)="cerrarSesion()">
+        Salir
+      </button>
+
+    </ion-buttons>
+    <ion-buttons>
+      <button ion-button ion-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -14,22 +27,22 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary">Nombres y Apellidos</ion-label>
-        <ion-input placeholder="mi nombre "></ion-input>
+        <ion-input [(ngModel)]="nombre"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Correo</ion-label>
-        <ion-input placeholder="micorreo@email.com"></ion-input>
+        <ion-input [(ngModel)]="correo" disabled></ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Contraseña</ion-label>
-        <ion-input type="password" placeholder="*******"></ion-input>
+        <ion-input type="password" placeholder="*******" [(ngModel)]="pass"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label color="primary">Confirmar Contraseña</ion-label>
-        <ion-input  type="password" placeholder="********"></ion-input>
+        <ion-input  type="password" placeholder="********" [(ngModel)]="passConfirm"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block color="secondary">
+    <button ion-button block color="secondary" (click)="actualizar()">
       Actualizar datos
     </button>
 
