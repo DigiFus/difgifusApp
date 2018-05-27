@@ -6,10 +6,14 @@ import {Platform } from "ionic-angular";
 
 import { URL_SERVICIOS } from '../../config/url.servicios'
 
+
 @Injectable()
 export class AutenticarProvider {
 
   toke:string;
+  datos = {
+      TOKEN:""
+  }
 
 
   constructor(public http: HttpClient,
@@ -71,13 +75,80 @@ export class AutenticarProvider {
 
   }
 
-  verifica_token(){
+  guardar_storage(key:any,data:any){
+
+    if (this.platform.is("cordova") || this.platform.is("android")) {
+      //Estamos en el dispositivo
+      return new Promise((resolve)=>{
+        
+        this.storage.ready().then(()=>{
+                this.storage.set(key, data).then(()=>{
+                    
+                  resolve();
+                }).catch((err)=>{
+                 
+                  console.log(err);
+                  
+                })
+        });
+      })
+
+    }else{
+    //estamos en escritorio o desktop
+    localStorage.setItem(key, JSON.stringify(data));
+    }
+
+  }
+
+  cargar_token(key:any){
+    
+    
+    let promesaToken = new Promise( (resolve, reject)=>{
+
+      if (this.platform.is("cordova") || this.platform.is("android")) {
+        //Estamos en el dispositivo
+        
+        this.storage.ready().then(()=>{
+            
+              this.storage.get(key).then(val=>{
+                
+                
+                this.datos.TOKEN = val;
+                resolve();
+                
+                
+              }).catch((err)=>{
+                console.log(err);
+                
+              });
+    
+        });
+  
+  
+      }else{
+      //estamos en desktop
+        if (localStorage.getItem(key)) {
+            this.datos =  JSON.parse(localStorage.getItem(key));
+        }
+        resolve();
+  
+     
+  
+      }
+    });
+    return promesaToken;
+  }
+
+
+
+  verifica_token(token:any){
     try{
         //let token = this._CtrStorange.cargar_storage('TOKEN');
-        let token = JSON.parse(localStorage.getItem('TOKEN'));
+        //let token = JSON.parse(localStorage.getItem('TOKEN'));
 
         if (token === '') return;
-
+        
+        
 
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace('-', '+').replace('_', '/');

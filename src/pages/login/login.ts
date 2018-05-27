@@ -6,7 +6,7 @@ import { RegistroPage,HomePage } from "../index.paginas";
 import { LoadingController, AlertController  } from "ionic-angular";
 
 import { AutenticarProvider } from "../../providers/autenticar/autenticar";
-import { ControlStorangeProvider } from "../../providers/control-storange/control-storange";
+
 
 @IonicPage()
 @Component({
@@ -24,7 +24,6 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
             public navParams: NavParams,
             private _aut:AutenticarProvider,
-            private _CtrStorange:ControlStorangeProvider,
             private alertCtrl:AlertController,
             private loadingCtrl: LoadingController) {
     this.registro = RegistroPage;
@@ -44,10 +43,11 @@ export class LoginPage {
         return;
     }else{
        this._aut.autenticar(data).then((result) => {
-
+        console.log(result);
+        
          //validamos si se creo el token
          if (result['result'] != null) {
-          this._CtrStorange.guardar_storage('TOKEN',JSON.stringify(result['result']));
+          this._aut.guardar_storage('TOKEN',result['result']);
           //localStorage.setItem('TOKEN',JSON.stringify(result['result']))
           //this.navCtrl.push(HomePage);
           this.navCtrl.setRoot(HomePage);

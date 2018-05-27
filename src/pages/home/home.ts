@@ -23,6 +23,7 @@ export class HomePage {
   turnStorage:any;
   turnStorageUAE:any;
   turnStorageFAC:any;
+  usuario:string;
 
   data = {
       fecha_solicitud:"",
@@ -38,11 +39,29 @@ export class HomePage {
               private _auth:AutenticarProvider,
               private storage:Storage) {
 
-                this.dataUsuario = this._auth.verifica_token();
+                this.verificarToken();
+                
                 this.cargar_storageUAE('TurnUAE');
                 this.cargar_storageFAC('TurnFAC');
                 
 
+  }
+
+  verificarToken(){
+    this._auth.cargar_token("TOKEN").then(()=>{
+      let decripToken = this._auth.verifica_token(this._auth.datos.TOKEN);
+      
+      
+      if(decripToken){
+        this.usuario = decripToken.Usuario;
+        
+        
+      }else{
+        this._auth.cerrarSesion();
+      }
+      
+      
+    })
   }
   
 
@@ -52,7 +71,7 @@ export class HomePage {
       "fecha_solicitud":"",
       "acronimo_solicitud":"UAE",
       "consecutivo_solicitud":"",
-      "email_usuario":"david@gmail.com",
+      "email_usuario":this.usuario,
       "estado_solicitud":"NUEVA"
     }
 
@@ -79,7 +98,7 @@ export class HomePage {
       "fecha_solicitud":"",
       "acronimo_solicitud":"FAC",
       "consecutivo_solicitud":"",
-      "email_usuario":"david@gmail.com",
+      "email_usuario":this.usuario,
       "estado_solicitud":"NUEVA"
     }
     
