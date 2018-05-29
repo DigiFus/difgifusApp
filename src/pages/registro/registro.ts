@@ -44,8 +44,8 @@ export class RegistroPage {
       "nom_usuario":this.dataIng['nomb'],
       "email_usuario":this.dataIng['correo'],
       "pass_usuario":this.dataIng['pass'],
-      "rolUsu":"USUARIO",
-      "estadoUsu":"ACTIVO"
+      "rol_usuario":"USUARIO",
+      "estado_usuario":"ACTIVO"
     };
 
     if (this.validaPass(data['pass_usuario'],this.dataIng['confirmpass'])) {

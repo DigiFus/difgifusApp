@@ -4,6 +4,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController, AlertController  } from "ionic-angular";
 
 import { PerfilProvider } from "../../providers/perfil/perfil";
+import { AutenticarProvider } from "../../providers/autenticar/autenticar";
+
+import {LoginPage} from "../index.paginas";
+
 
 @IonicPage()
 @Component({
@@ -17,22 +21,50 @@ export class PerfilPage {
   correo:string="";
   pass:string="";
   passConfirm:string="";
+  usuario:string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private _perf:PerfilProvider,
               private alertCtrl:AlertController,
-              private loadingCtrl: LoadingController) {
+              private loadingCtrl: LoadingController,
+              private _auth:AutenticarProvider) {
+                
+                this.verificarToken();
+                
+                
+                
 
-                this.obtenerPerfil();
 
           
   }
+  verificarToken(){
+    this._auth.cargar_token("TOKEN").then(()=>{
+      let decripToken = this._auth.verifica_token(this._auth.datos.TOKEN);
+      
+      
+      if(decripToken){
+        this.usuario = decripToken.Usuario;
+        this.Loading();
+        this.obtenerPerfil(this.usuario);
+        
+        
+        
+      }else{
+        this._auth.cerrarSesion();
+        this.navCtrl.setRoot(LoginPage);
+      }
+      
+      
+    })
+  }
 
-  obtenerPerfil(){
-    this._perf.obtenerPerfil().then( (result)=>{
+  obtenerPerfil(usuario:any){
+    
+    
+    this._perf.obtenerPerfil(usuario).then( (result)=>{
       //if (result['result'] != null) {
-          console.log(result);
+          
             //this.data = result;
             
             this.nombre = result['nom_usuario'];
@@ -55,6 +87,7 @@ export class PerfilPage {
     if (this.pass == "" && this.passConfirm == "") {
       
       data.nom_usuario = this.nombre;
+      
       this.Loading();
       this._perf.actualizarPerfil(data).then( (result)=>{
         
@@ -125,6 +158,10 @@ export class PerfilPage {
       duration: 2000
     });
     loader.present();
+  }
+  cerrarSesion(){
+    this._auth.cerrarSesion();
+    this.navCtrl.setRoot(LoginPage);
   }
 
   ionViewDidLoad() {

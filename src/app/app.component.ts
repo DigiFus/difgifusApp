@@ -8,6 +8,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AjustesProvider } from "../providers/ajustes/ajustes";
 import { AutenticarProvider } from "../providers/autenticar/autenticar";
 
+
+
 import { LoginPage, IntroduccionPage, HomePage, CreditosPage, PerfilPage } from '../pages/index.paginas';
 
 @Component({
@@ -19,6 +21,8 @@ export class MyApp {
   creditos = CreditosPage;
   perfil = PerfilPage;
   inicio = HomePage;
+
+  showSplash = true;
   
   
 
@@ -54,6 +58,8 @@ export class MyApp {
               statusBar.styleDefault();
               splashScreen.hide();
 
+              
+
       });
 
     });
@@ -63,6 +69,11 @@ export class MyApp {
   abrirPagina( pagina:any ){
     this.rootPage = pagina;
     this.menuCtrl.close();
+  }
+  cerrarSesion(){
+    this._auth.cerrarSesion();
+    this.menuCtrl.close();
+    //this.rootPage = LoginPage;
   }
 
 

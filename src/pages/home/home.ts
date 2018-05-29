@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, AlertController  } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 
@@ -24,6 +24,7 @@ export class HomePage {
   turnStorageUAE:any;
   turnStorageFAC:any;
   usuario:string;
+  fActual:any;
 
   data = {
       fecha_solicitud:"",
@@ -37,9 +38,11 @@ export class HomePage {
               private _solicitud:SolicitudesProvider,
               private platform:Platform,
               private _auth:AutenticarProvider,
-              private storage:Storage) {
+              private storage:Storage,
+              private alertCtrl: AlertController) {
 
                 this.verificarToken();
+                this.fActual = new Date();
                 
                 this.cargar_storageUAE('TurnUAE');
                 this.cargar_storageFAC('TurnFAC');
@@ -58,14 +61,51 @@ export class HomePage {
         
       }else{
         this._auth.cerrarSesion();
+        this.navCtrl.setRoot(LoginPage);
       }
       
       
     })
   }
+
+  solUAE(){
+    
+    
+            let newFecha = this.fActual.getFullYear()+"-"+(this.fActual.getMonth()+1)+"-"+this.fActual.getDate();
+            this._solicitud.obtenerTurnosDiaUAE(newFecha).then((result)=>{
+              if(result['numTurnos'] > 0){
+                this.alertConfirmUAE(result['numTurnos']*3, "UAE");
+                                
+              }else{
+
+                console.log(result['numTurnos']);
+              }
+              
+            })
+  }
+  solFAC(){
+            let newFecha = this.fActual.getFullYear()+"-"+(this.fActual.getMonth()+1)+"-"+this.fActual.getDate();
+            this._solicitud.obtenerTurnosDiaFAC(newFecha).then((result)=>{
+              if(result['numTurnos'] > 0){
+
+                
+                
+
+                this.alertConfirmFAC(result['numTurnos']*3, "FAC");
+                
+                                
+              }else{
+
+                console.log(result['numTurnos']);
+              }
+              
+            })
+
+  }
   
 
   solTurnoUae(){
+    
 
     this.data = {
       "fecha_solicitud":"",
@@ -73,7 +113,7 @@ export class HomePage {
       "consecutivo_solicitud":"",
       "email_usuario":this.usuario,
       "estado_solicitud":"NUEVA"
-    }
+    } 
 
     this._solicitud.registrar(this.data).then((result) => {
         
@@ -116,6 +156,57 @@ export class HomePage {
         console.log(err);
     });
   }
+
+
+  alertConfirmUAE(minutos:any, funcion:any) {
+    let alert = this.alertCtrl.create({
+      title: 'Tiempo de atención',
+      message: 'El tiempo aproximado de atención es de '+minutos+' minutos, Desea solicitar su turno?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            return;
+          }
+        },
+        {
+          text: 'Solicitar',
+          handler: () => {
+            this.solTurnoUae();
+            //console.log('Buy clicked '+f.getFullYear()+"/"+(f.getMonth()+1)+"/"+f.getDate());
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  alertConfirmFAC(minutos:any, funcion:any) {
+    let alert = this.alertCtrl.create({
+      title: 'Tiempo de atención',
+      message: 'El tiempo aproximado de atención es de '+minutos+' minutos, Desea solicitar su turno?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            return;
+          }
+        },
+        {
+          text: 'Solicitar',
+          handler: () => {
+            this.solTurnoFAC();
+            //console.log('Buy clicked '+f.getFullYear()+"/"+(f.getMonth()+1)+"/"+f.getDate());
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   cerrarSesion(){
     this._auth.cerrarSesion();

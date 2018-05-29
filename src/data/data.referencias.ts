@@ -18,17 +18,17 @@ export const AUTORES = [
   {
     nombre:"Astrid Rodriguez",
     cargo:"Gerente de Proyecto y documentador",
-    foto:"../assets/imgs/astridrodriguez.jpeg"
+    foto:"assets/imgs/astridrodriguez.jpeg"
   },
   {
     nombre:"David Zambrano",
     cargo:"Arquitecto y Gerente de desarrollo",
-    foto:"../assets/imgs/davidzambrano.jpg"
+    foto:"assets/imgs/davidzambrano.jpg"
   },
   {
     nombre:"Giovanni Sanchez",
     cargo:"Gerente de riesgo y calidad",
-    foto:"../assets/imgs/giovannysanchez.jpeg"
+    foto:"assets/imgs/giovannysanchez.jpeg"
   }
 
 

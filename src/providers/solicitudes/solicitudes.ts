@@ -26,6 +26,36 @@ export class SolicitudesProvider {
   });
 
   }
+  obtenerTurnosDiaUAE(fecha){
+    return new Promise( (resolve,reject)=>{
+      this.http.get(URL_SERVICIOS+'solicitud/calcularTiempoUAE/'+fecha,{
+        headers:new HttpHeaders().set('Content-Type', 'application/json')
+      })
+      .subscribe(res =>{
+        resolve(res);
+      }, (err) =>{
+        reject(err);
+      });
+
+    });
+  }
+
+    obtenerTurnosDiaFAC(fecha){
+      return new Promise( (resolve,reject)=>{
+        this.http.get(URL_SERVICIOS+'solicitud/calcularTiempoFAC/'+fecha,{
+          headers:new HttpHeaders().set('Content-Type', 'application/json')
+        })
+        .subscribe(res =>{
+          resolve(res);
+        }, (err) =>{
+          reject(err);
+        });
+  
+      });
+  
+  
+
+  }
   
 
 }

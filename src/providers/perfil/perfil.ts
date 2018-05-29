@@ -10,9 +10,9 @@ export class PerfilProvider {
     console.log('Hello PerfilProvider Provider');
   }
 
-  obtenerPerfil(){
+  obtenerPerfil(usuario:any){
     return new Promise( (resolve,reject)=>{
-      this.http.get(URL_SERVICIOS+'usuario/obtener/'+'david@gmail.com',{
+      this.http.get(URL_SERVICIOS+'usuario/obtener/'+usuario,{
         headers:new HttpHeaders().set('Content-Type', 'application/json')
       })
       .subscribe(res =>{
