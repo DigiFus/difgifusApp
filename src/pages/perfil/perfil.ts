@@ -86,10 +86,11 @@ export class PerfilPage {
     
     if (this.pass == "" && this.passConfirm == "") {
       
-      data.nom_usuario = this.nombre;
+      //data.nom_usuario = this.nombre;
       
       this.Loading();
-      this._perf.actualizarPerfil(data).then( (result)=>{
+      this._perf.actualizarPerfil(data, this.usuario).then( (result)=>{
+        console.log(result);
         
         if(result['response']){
           this.showAlert('Actualización correcta', 'Tus datos fueron actualizados correctamente');
@@ -104,9 +105,10 @@ export class PerfilPage {
 
         data.nom_usuario = this.nombre;
         data.pass_usuario = this.pass;
+        
         this.Loading();
-        this._perf.actualizarPerfil(data).then( (result)=>{
-          console.log(result);
+        this._perf.actualizarPerfil(data, this.usuario).then( (result)=>{
+          this.showAlert('Actualización correcta', 'Tus datos fueron actualizados correctamente');
         },(err)=>{
                   
         

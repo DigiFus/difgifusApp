@@ -73,12 +73,13 @@ export class HomePage {
     
             let newFecha = this.fActual.getFullYear()+"-"+(this.fActual.getMonth()+1)+"-"+this.fActual.getDate();
             this._solicitud.obtenerTurnosDiaUAE(newFecha).then((result)=>{
+              console.log('num turnos UAE '+result['numTurnos']);
               if(result['numTurnos'] > 0){
-                this.alertConfirmUAE(result['numTurnos']*3, "UAE");
+                this.alertConfirmUAE(result['numTurnos']*3, "");
                                 
               }else{
 
-                console.log(result['numTurnos']);
+                this.alertConfirmUAE(result['numTurnos']*3, "Eres el primero en la lista de espera, Pulsa en el boton Solicitar y dirigete al modulo de atención.");
               }
               
             })
@@ -86,17 +87,19 @@ export class HomePage {
   solFAC(){
             let newFecha = this.fActual.getFullYear()+"-"+(this.fActual.getMonth()+1)+"-"+this.fActual.getDate();
             this._solicitud.obtenerTurnosDiaFAC(newFecha).then((result)=>{
+              console.log('num turnos FAC '+result['numTurnos']);
+              
               if(result['numTurnos'] > 0){
 
                 
                 
 
-                this.alertConfirmFAC(result['numTurnos']*3, "FAC");
+                this.alertConfirmFAC(result['numTurnos']*3, "");
                 
                                 
               }else{
 
-                console.log(result['numTurnos']);
+                this.alertConfirmFAC(result['numTurnos']*3, "Eres el primero en la lista de espera, Pulsa en el boton Solicitar y dirigete al modulo de atención.");
               }
               
             })
@@ -158,10 +161,16 @@ export class HomePage {
   }
 
 
-  alertConfirmUAE(minutos:any, funcion:any) {
+  alertConfirmUAE(minutos:any, mensaje:any) {
+
+    if (mensaje ==""){
+      mensaje = 'El tiempo aproximado de atención es de '+minutos+' minutos, Desea solicitar su turno?'; 
+    }
+
+
     let alert = this.alertCtrl.create({
       title: 'Tiempo de atención',
-      message: 'El tiempo aproximado de atención es de '+minutos+' minutos, Desea solicitar su turno?',
+      message: mensaje,
       buttons: [
         {
           text: 'Cancelar',
@@ -182,10 +191,15 @@ export class HomePage {
     });
     alert.present();
   }
-  alertConfirmFAC(minutos:any, funcion:any) {
+  alertConfirmFAC(minutos:any, mensaje:any) {
+
+    if (mensaje ==""){
+      mensaje = 'El tiempo aproximado de atención es de '+minutos+' minutos, Desea solicitar su turno?'; 
+    }
+
     let alert = this.alertCtrl.create({
       title: 'Tiempo de atención',
-      message: 'El tiempo aproximado de atención es de '+minutos+' minutos, Desea solicitar su turno?',
+      message: mensaje,
       buttons: [
         {
           text: 'Cancelar',

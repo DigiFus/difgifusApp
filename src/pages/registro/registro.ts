@@ -58,9 +58,18 @@ export class RegistroPage {
             this.showAlert("Usuario registrado", "Bien, tu usuario fue registrado, ahora puedes loguearte en la app.")
         }
       },(err)=>{
-        this.msgError =  err['error'];
 
-        console.log(this.msgError);
+        this.msgError =  err['error'];
+        
+        if(this.msgError.email_usuario){
+          this.showAlert("Error en el correo", this.msgError.email_usuario[0]);
+        }
+        if (this.msgError.pass_usuario) {
+          this.showAlert("Error en el correo", this.msgError.pass_usuario[0]);
+        }
+        
+
+        
       });
 
 

@@ -25,9 +25,9 @@ export class PerfilProvider {
 
 
   }
-  actualizarPerfil(data:any){
+  actualizarPerfil(data:any,usuario:any){
     return new Promise( (resolve,reject)=>{
-      this.http.put(URL_SERVICIOS+'usuario/actualizar/'+'david@gmail.com',JSON.stringify(data),{
+      this.http.put(URL_SERVICIOS+'usuario/actualizar/'+usuario,JSON.stringify(data),{
         headers:new HttpHeaders().set('Content-Type', 'application/json')
       })
       .subscribe(res =>{
