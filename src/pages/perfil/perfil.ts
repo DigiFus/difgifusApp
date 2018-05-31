@@ -76,20 +76,19 @@ export class PerfilPage {
 
 
   actualizar(){
-    let data = {
-      nom_usuario:this.nombre,
-      pass_usuario:""
-    };
-
+    
 
     console.log(this.pass,this.passConfirm);
     
     if (this.pass == "" && this.passConfirm == "") {
       
       //data.nom_usuario = this.nombre;
+      let datos = {
+        nom_usuario:this.nombre
+      }
       
       this.Loading();
-      this._perf.actualizarPerfil(data, this.usuario).then( (result)=>{
+      this._perf.actualizarPerfil(datos, this.usuario).then( (result)=>{
         console.log(result);
         
         if(result['response']){
@@ -102,9 +101,12 @@ export class PerfilPage {
     } else {
       
       if(this.validaPass(this.pass,this.passConfirm)){
-
-        data.nom_usuario = this.nombre;
-        data.pass_usuario = this.pass;
+        let data = {
+          nom_usuario:this.nombre,
+          pass_usuario:this.pass
+        };
+    
+        
         
         this.Loading();
         this._perf.actualizarPerfil(data, this.usuario).then( (result)=>{
