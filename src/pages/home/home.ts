@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController  } from 'ionic-angular';
+import { NavController, 
+          Platform, 
+          AlertController,
+          Refresher  } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 
@@ -43,6 +46,9 @@ export class HomePage {
 
                 this.verificarToken();
                 this.fActual = new Date();
+                console.log("cargamos el constructor del home page");
+                
+             
                 
                 this.cargar_storageUAE('TurnUAE');
                 this.cargar_storageFAC('TurnFAC');
@@ -335,6 +341,16 @@ export class HomePage {
     localStorage.setItem(key, JSON.stringify(data));
     }
 
+  }
+
+  recargarPagina(refresher:Refresher){
+
+    setTimeout(()=>{
+      this.cargar_storageUAE('TurnUAE');
+      this.cargar_storageFAC('TurnFAC');
+        refresher.complete();
+        
+    },1500)
   }
 
 

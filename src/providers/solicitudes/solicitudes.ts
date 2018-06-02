@@ -113,13 +113,54 @@ export class SolicitudesProvider {
     return promesaUAE;
 
   }
+  cargaFacStorage(key:any){
+
+    let promesaFAC = new Promise((resolve,reject)=>{
+      if (this.platform.is("cordova") || this.platform.is("android")) {
+        //Estamos en el dispositivo
+        
+        this.storage.ready().then(()=>{
+            
+              this.storage.get(key).then(val=>{
+                
+                
+                this.datos.FacStorage = val;
+                
+                resolve();
+                
+                
+              }).catch((err)=>{
+                console.log(err);
+                
+              });
+    
+        });
+  
+  
+      }else{
+      //estamos en desktop
+        if (localStorage.getItem(key)) {
+            this.datos =  JSON.parse(localStorage.getItem(key));
+        }
+        resolve();
+      }
+    });
+    return promesaFAC;
+
+  }
 
 
   eliminarStorage(key:any){
     if(this.platform.is("cordova") || this.platform.is("android")){
+      console.log("se detecto android");
+      
       this.storage.ready().then(()=>{
         return new Promise((resolve)=>{
+          console.log("preparandono para remover el item");
+          
             this.storage.remove(key).then(()=>{
+              console.log("Listo item removido ");
+              
               resolve();
             })
         }).catch((err)=>{

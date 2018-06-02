@@ -19,6 +19,12 @@
 </ion-header>
 
 <ion-content padding>
+
+    <ion-refresher (ionRefresh)="recargarPagina($event)">
+        <ion-refresher-content
+            refreshingText="Actualizando...">
+        </ion-refresher-content>
+      </ion-refresher>
 {{msg}}
 
 <ion-card>
